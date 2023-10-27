@@ -19,7 +19,7 @@ get("/") do
   parsed_data = JSON.parse(raw_data_string)
 
   # get the symbols from the JSON
-  @symbols = parsed_data
+  @symbols = parsed_data.keys
 
   @currency_hash = parsed_data.fetch("currencies")
 
@@ -54,6 +54,20 @@ get("/:from_currency/:to_currency") do
   @first_currency = params.fetch("from_currency")
   @second_currency = params.fetch("to_currency")
   
+  # build the API url, including the API key in the query string
+  api_url = "https://api.exchangerate.host/convert?access_key=#{ENV["EXCHANGE_RATE_KEY"]}&from=#{@first_currency}&to=#{@second_currency}&amount=1"
+
+  # use HTTP.get to retrieve the API information
+  raw_data = HTTP.get(api_url)
+
+  # convert the raw request to a string
+  raw_data_string = raw_data.to_s
+
+  # convert the string to JSON
+  parsed_data = JSON.parse(raw_data_string)
+
+  @conversion_rate = parsed_data.fetch("result")
+
   erb(:to_currency)
 
 end
