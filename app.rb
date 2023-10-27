@@ -33,9 +33,15 @@ get("/") do
 end
 
 get("/:from_currency") do
- 
-  @from_currency = params.fetch("number_of_dice").to_i
+  @first_currency = params.fetch("from_currency")
   #@num_sides = params.fetch("how_many_sides").to_i
 
-  #erb(:results)
+  #erb()
+end
+
+get("/:from_currency/:to_currency") do
+  @first_currency = params.fetch("from_currency")
+  #@num_sides = params.fetch("how_many_sides").to_i
+
+  #erb()
 end
