@@ -11,7 +11,7 @@ get("/") do
 
   # use HTTP.get to retrieve the API information
   raw_data = HTTP.get(api_url)
-  
+
   # convert the raw request to a string
   raw_data_string = raw_data.to_s
 
@@ -19,17 +19,23 @@ get("/") do
   parsed_data = JSON.parse(raw_data_string)
 
   # get the symbols from the JSON
-  pp @symbols = parsed_data.keys
+  @symbols = parsed_data
 
-  currency_hash = parsed_data.fetch("currencies")
+  @currency_hash = parsed_data.fetch("currencies")
 
-  currency_hash.each do |code, name|
-    pp "Currency Code: #{code}"
-    pp "Currency Name #{name}"
-  end
-
-  
+  # currency_hash.each do |code, name|
+  #   pp "Currency Code: #{code}"
+  #   pp "Currency Name #{name}"
+  # end
 
   # render a view template where I show the symbols
-  # erb(:homepage)
+  erb(:homepage)
+end
+
+get("/:from_currency") do
+ 
+  @from_currency = params.fetch("number_of_dice").to_i
+  #@num_sides = params.fetch("how_many_sides").to_i
+
+  #erb(:results)
 end

@@ -1,0 +1,15 @@
+<h1>Currency pairs</h1>
+
+<ul>
+  <% @currency_hash.keys.each do |curr_code| %>
+    <li>
+       <a href="<%=curr_code%>">
+        Convert 1 <%=curr_code%> to...
+      </a>
+    </li>
+  <% end %>
+</ul>
+
+
+     
+   
